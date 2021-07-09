@@ -58,5 +58,7 @@
     <string name="no_data_heading">No Data Found</string>
     <string name="no_data_body">Please ensure that you have used the Instagram app on this device. If the issue persists, please report at @iqbalunia111@gmail.com </string>
     <string name="try_again">Try Again</string>
+    
+    <string name="client_id">310493001155-nklt241s05h5np9hns58qlj1ape06mce.apps.googleusercontent.com</string>
 
 </resources>
