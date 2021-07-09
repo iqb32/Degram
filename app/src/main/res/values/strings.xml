@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">Degram</string>
+    <string name="metrics">Today\'s Usage</string>
+
+    <string name="greater_than_daily_average_emoji">😟</string>
+    <string name="lower_than_daily_average_emoji">😎</string>
+    <string name="greater_than_global_average_emoji">😢</string>
+    <string name="lower_than_global_average_emoji">🤩</string>
+    <string name="streaks_emoji">🔥</string>
+    <string name="no_streaks_emoji">😩</string>
+
+    <string name="greater_than_daily_average">Greater than \n daily average</string>
+    <string name="lower_than_daily_average">Lower than \n daily average</string>
+    <string name="greater_than_global_average">Greater than \n global average</string>
+    <string name="lower_than_global_average">Lower than \n global average</string>
+    <string name="no_streaks_text">No Streak :( </string>
+
+    <plurals name="streaks_text">
+        <item quantity="one">%d Day \n Streak</item>
+        <item quantity="other">%d Days \n Streak</item>
+    </plurals>
+
+    <string name="daily_average_info">Daily average is computed on the basis of the usage of the past 10 days. You\'re today\'s usage is  %s compared to a daily average of %s </string>
+    <string name="global_average_info">This is an average of global Instagram use. You\'re today\'s usage is : %s compared to a global average of 51 minutes.</string>
+    <string name="streaks_info">A streak represents a day when you have lowered your usage compared to the day before. Streaks can only increase up to 10. If you manage to go beyond that, take a bow. Now try to maintain it 😉 </string>
+    <string name="score_info">Degram score is based on 3 parameters : Your daily average, your usage compared to the global average and streaks. The first 2 constitute 30 % each, while the streaks account for the remaining 40 %. Increase your streaks , keep your usage below daily average and global average to get a perfect 💯</string>
+
+    <string name="degram_score">Degram Score</string>
+    <string name="learn_more">Learn More</string>
+
+    <string name="degram_score_description">This score is the representation of your efforts to decrease instagram usage. Hang in there , and keep trying to push this score. 💪🏻💯</string>
+    <string name="perfect_degram_score_description"> Kudos, you have achieved the perfect Degram score. Give yourself a pat on the back. Proud of you ! 💯 💯 💯</string>
+
+    <string name="degram_score_100">Take a bow. Well done ! 👑👑</string>
+    <string name="degram_score_96">You\'re almost there ! 💯 💯 </string>
+    <string name="degram_score_92">You\'re killing it ! 🤩🤩</string>
+    <string name="degram_score_88">You\'re on fire ! 🔥🔥</string>
+    <string name="degram_score_84">Wow. Wow. Wow 💥💥</string>
+    <string name="degram_score_80">Impressive Work ! ✌️✌️ </string>
+    <string name="degram_score_76">Stupefying control ! 👏👏</string>
+    <string name="degram_score_72">Doing spectacularly splendid ✨✨</string>
+    <string name="degram_score_68">Keep Pushing ! 💪🏻 💪🏻</string>
+    <string name="degram_score_64">Cheers ! Way to go 🥂🥂</string>
+    <string name="degram_score_60">Keep Fighting ! 💖💖</string>
+    <string name="degram_score_30">Come on! You can do it!. 😇😇</string>
+    <string name="degram_score_0">Stay strong. 🤗🤗</string>
+
+
+    <string name="hi_buddy">Hi Buddy,</string>
+    <string name="past_usage">Past Usage</string>
+
+    <string name="missing_permission_emoji">😴</string>
+    <string name="missing_permission_heading">Missing Permission</string>
+    <string name="missing_permission_body">Before degram can provide insights about your Instagram usage, we need Usage Access</string>
+    <string name="grant_permission">Grant Permission</string>
+
+    <string name="no_data_emoji">😶</string>
+    <string name="no_data_heading">No Data Found</string>
+    <string name="no_data_body">Please ensure that you have used the Instagram app on this device. If the issue persists, please report at @iqbalunia111@gmail.com </string>
+    <string name="try_again">Try Again</string>
+
+</resources>

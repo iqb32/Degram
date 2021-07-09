@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "310493001155",
+    "project_id": "fintock-18d8b",
+    "storage_bucket": "fintock-18d8b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310493001155:android:ca15af0abd0648ff903976",
+        "android_client_info": {
+          "package_name": "com.example.degram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "310493001155-rs2lp9gn2osikdpcbk11g10tem1fgj4s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.degram",
+            "certificate_hash": "ad87020a6f09acbee5c4a9095c04c96e4a2683a6"
+          }
+        },
+        {
+          "client_id": "310493001155-nklt241s05h5np9hns58qlj1ape06mce.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3xhDKpHI9kyFjYNFw1vajmdaH_ARm7wo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "310493001155-nklt241s05h5np9hns58qlj1ape06mce.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
