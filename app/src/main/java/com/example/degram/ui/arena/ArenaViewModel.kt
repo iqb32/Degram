@@ -31,16 +31,43 @@ class ArenaViewModel @Inject constructor(
     val dismissSheet : LiveData<Boolean>
         get() = _dismissSheet
 
+    private val _askForArenaCode = MutableLiveData<Boolean>()
+    val askForArenaCode : LiveData<Boolean>
+        get() = _askForArenaCode
+
+    val code = MutableLiveData<String>()
+
+    private val _toast = MutableLiveData<String>()
+    val toast : LiveData<String>
+        get() = _toast
 
     fun newArena() {
         viewModelScope.launch {
             _isLoading.value = true
-            if (repository.createNewArena()) {
-                _isLoading.value = false
-                _dismissSheet.value = true
-            } else {
-                _isLoading.value = false
-                _dismissSheet.value = true
+            val isArenaCreated = repository.createNewArena()
+            _isLoading.value = false
+            _dismissSheet.value = true
+           if (!isArenaCreated) _toast.value = "Failed to create arena. Please try again later."
+        }
+    }
+
+    fun joinExistingArena() {
+        when {
+            code.value == null -> {
+                _toast.value = "Please enter a arena code"
+            }
+            code.value!!.length != 6 -> {
+                _toast.value  = "Code should be a 6 digit number"
+            }
+            else -> {
+                viewModelScope.launch {
+                    _askForArenaCode.value = false
+                    _isLoading.value = true
+                    val isArenaJoined = repository.joinExistingArena(code.value!!)
+                    _isLoading.value = false
+                    _dismissSheet.value = true
+                    if (!isArenaJoined) _toast.value = "Failed to join arena. Please try again later."
+                }
             }
         }
     }
@@ -53,6 +80,8 @@ class ArenaViewModel @Inject constructor(
             _showAddArenaLayout.value = true
         }
     }
+
+    fun askForCode() { _askForArenaCode.value = true }
 
     companion object {
         private const val TAG = "ArenaViewModel"

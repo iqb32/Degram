@@ -42,6 +42,8 @@ class ArenaFragment : Fragment() {
 
         viewModel.showAddArenaLayout.observe(viewLifecycleOwner, {if (it) showAddArenaLayout()})
 
+        viewModel.toast.observe(viewLifecycleOwner, {Toast.makeText(context, it, Toast.LENGTH_SHORT).show()})
+
         return binding.root
     }
 

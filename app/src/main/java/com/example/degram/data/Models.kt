@@ -3,10 +3,10 @@ package com.example.degram.data
 data class Arena(
     val hostUid : String = "",
     val code : String = "",
-    val members : List<ArenaParticipants> = mutableListOf()
+    val members : List<Member> = mutableListOf()
 )
 
-data class ArenaParticipants(
+data class Member(
     val uid : String = "",
     val name : String = "",
     val imgUrl  : String = "",

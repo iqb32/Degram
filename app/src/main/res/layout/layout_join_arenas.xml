@@ -22,7 +22,7 @@
             android:drawablePadding="16dp"
             android:text="@string/create_a_new_arena"
             android:textSize="24sp"
-            app:visibility="@{viewModel.isLoading() != true}"
+            app:visibility="@{viewModel.isLoading() != true &amp;&amp; viewModel.askForArenaCode != true}"
             android:onClick="@{() -> viewModel.newArena()}"
             app:drawableStartCompat="@drawable/ic_new_arena"
             app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +40,8 @@
             android:drawablePadding="16dp"
             android:text="@string/join_existing_arena"
             android:textSize="24sp"
-            app:visibility="@{viewModel.isLoading() != true}"
+            android:onClick="@{() -> viewModel.askForCode()}"
+            app:visibility="@{viewModel.isLoading() != true &amp;&amp; viewModel.askForArenaCode != true}"
             app:drawableStartCompat="@drawable/ic_join_arena"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,11 +54,64 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
-            app:visibility="@{viewModel.isLoading() == true}"
+            app:visibility="@{viewModel.isLoading() == true &amp;&amp; viewModel.askForArenaCode != true}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/enter_arena_code"
+            style="@style/Heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/enter_arena_code"
+            app:layout_constraintBottom_toTopOf="@+id/code"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibility="@{viewModel.isLoading() != true &amp;&amp; viewModel.askForArenaCode == true}" />
+
+        <EditText
+            android:id="@+id/code"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/background_edit_text"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:singleLine="true"
+            android:text="@={viewModel.code}"
+            app:visibility="@{viewModel.isLoading() != true &amp;&amp; viewModel.askForArenaCode == true}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+             />
+
+        <ImageButton
+            android:id="@+id/next_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_next_black"
+            app:layout_constraintBottom_toBottomOf="@+id/code"
+            app:layout_constraintEnd_toEndOf="@+id/code"
+            app:layout_constraintTop_toTopOf="@+id/code"
+            app:visibility="@{viewModel.isLoading() != true &amp;&amp; viewModel.askForArenaCode == true}"
+            android:onClick="@{() -> viewModel.joinExistingArena()}"
+            />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

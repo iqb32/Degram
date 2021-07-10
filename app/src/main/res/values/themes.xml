@@ -47,5 +47,12 @@
         <item name="fontFamily">@font/regular</item>
     </style>
 
+    <style name="EditText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:editTextColor">@color/blueish_black</item>
+        <item name="fontFamily">@font/bold</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
 
 </resources>

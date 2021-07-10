@@ -10,4 +10,5 @@
 
     <color name="smokey_white">#F4F6FA</color>
     <color name="blueish_black">#0C141F</color>
+    <color name="edit_text_grey">#ebebeb</color>
 </resources>
