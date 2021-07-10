@@ -15,3 +15,10 @@ import java.util.*
     if (index < -1) cal.add(Calendar.WEEK_OF_YEAR, index + 1)
     return cal.timeInMillis
 }
+
+fun getRandomCode() : String {
+    val allowedChars = (0..9)
+    return (1..6)
+        .map { allowedChars.random() }
+        .joinToString("")
+}

@@ -13,10 +13,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.degram.R
 import com.example.degram.databinding.FragmentArenaBinding
+import com.example.degram.databinding.LayoutJoinArenasBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,7 +40,24 @@ class ArenaFragment : Fragment() {
 
         viewModel.authenticateUser.observe(viewLifecycleOwner, {if (it == true) logInUser()})
 
+        viewModel.showAddArenaLayout.observe(viewLifecycleOwner, {if (it) showAddArenaLayout()})
+
         return binding.root
+    }
+
+    private fun showAddArenaLayout() {
+        val bottomSheet = BottomSheetDialog(requireContext(), R.style.bottomSheetDialog)
+        val bindingSheet = DataBindingUtil.inflate<LayoutJoinArenasBinding>(
+                layoutInflater,
+                R.layout.layout_join_arenas,
+                null,
+                false
+        )
+        bindingSheet.viewModel = viewModel
+        bindingSheet.lifecycleOwner = this
+        viewModel.dismissSheet.observe(viewLifecycleOwner, {if (it) bottomSheet.dismiss()})
+        bottomSheet.setContentView(bindingSheet.root)
+        bottomSheet.show()
     }
 
     private fun logInUser() {

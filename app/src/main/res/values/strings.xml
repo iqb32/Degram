@@ -60,5 +60,7 @@
     <string name="try_again">Try Again</string>
     
     <string name="client_id">310493001155-nklt241s05h5np9hns58qlj1ape06mce.apps.googleusercontent.com</string>
+    <string name="create_a_new_arena">Create a new arena</string>
+    <string name="join_existing_arena">Join existing arena</string>
 
 </resources>
