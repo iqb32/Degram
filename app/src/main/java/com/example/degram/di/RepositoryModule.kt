@@ -1,10 +1,11 @@
 package com.example.degram.di
 
+import android.content.Context
 import com.example.degram.data.DegramRepository
-import com.example.degram.database.DegramDb
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -13,5 +14,6 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Provides
     @Singleton
-    fun provideRepo(database : DegramDb) : DegramRepository { return DegramRepository(database)}
+    fun provideRepo(@ApplicationContext context: Context) : DegramRepository { return DegramRepository(context)}
+
 }

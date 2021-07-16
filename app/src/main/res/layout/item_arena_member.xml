@@ -1,0 +1,74 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="member"
+            type="com.example.degram.data.Member" />
+        <variable
+            name="rank"
+            type="Integer" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_item"
+        android:layout_marginStart="16dp">
+
+        <ImageView
+            android:id="@+id/dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/profile_picture"
+            app:layout_constraintBottom_toBottomOf="@+id/score"
+            app:layout_constraintStart_toEndOf="@id/rank_number"
+            app:layout_constraintTop_toTopOf="@+id/name"
+            app:setProfilePhoto="@{member.imgUrl}"
+            tools:src="@drawable/default_profile_picture" />
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/Heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:text="@{member.name}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/dp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Iqbal Singh" />
+
+        <TextView
+            android:id="@+id/score"
+            style="@style/Body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@{`Score : ` + member.degramScore}"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/name"
+            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            tools:text="Score : 64" />
+
+        <TextView
+            android:id="@+id/rank_number"
+            style="@style/Heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:rank="@{rank}"
+            app:layout_constraintBottom_toBottomOf="@+id/dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/dp"
+            tools:text="#4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

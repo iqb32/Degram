@@ -1,4 +1,4 @@
-package com.example.degram.ui.home
+package com.example.degram.ui.insights
 
 
 import android.content.Context

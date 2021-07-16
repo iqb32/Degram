@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.degram.ui.home.HomeViewModel" />
+            type="com.example.degram.ui.insights.InsightsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

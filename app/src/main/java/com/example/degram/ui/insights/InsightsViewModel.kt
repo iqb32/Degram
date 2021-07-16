@@ -1,26 +1,26 @@
-package com.example.degram.ui.home
+package com.example.degram.ui.insights
 
 import android.app.AppOpsManager
 import android.app.usage.UsageStats
-import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.pm.PackageManager
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.degram.util.Constants
+import com.example.degram.data.DegramRepository
 import com.example.degram.util.formatDate
 import com.example.degram.util.formatTime
-import com.example.degram.util.getDayFromTimeStamp
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() : ViewModel() {
+class InsightsViewModel @Inject constructor(
+        @ApplicationContext private val context: Context,
+        private val repository: DegramRepository
+) : ViewModel() {
 
     private val _noDataError = MutableLiveData<Boolean>()
     val noDataError: LiveData<Boolean>
@@ -64,81 +64,28 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     val usage: LiveData<String>
         get() = _usage
 
-    fun getUsageData(usageStatsManager: UsageStatsManager, context: Context) {
+    init {
+        getStats()
+    }
 
+     fun getStats() {
         //Check for permission first
         if (checkForPermission(context)) {
             viewModelScope.launch {
-                //For calculating streaks and average , we get the past 10 days data
-                //Streaks can go only till 10, after which they remain constant
-                //Average is also computed based on last 10 days of data
-                val calendarStreaks = Calendar.getInstance()
-                calendarStreaks.add(Calendar.DAY_OF_MONTH, -10)
-                val startTimeStreaks = calendarStreaks.timeInMillis
+                val stats = repository.getStats()
+                if (stats != null) {
+                    _dailyAverage.value = Metrics.DailyAverage(stats.dailyAverage, stats.currentUsage)
+                    _currentUsage.value = Metrics.GlobalAverage(stats.currentUsage)
+                    _streakCount.value = Metrics.StreakCount(stats.streaksCount)
+                    _degramScore.value = stats.degramScore
 
-                //Get the stats , and filter the data for only instagram app
-                val stats =
-                        usageStatsManager.queryUsageStats(
-                                UsageStatsManager.INTERVAL_DAILY,
-                                startTimeStreaks,
-                                System.currentTimeMillis()
-                        ).filter { stats -> stats.packageName == Constants.INSTAGRAM_PACKAGE_NAME }
-
-                //TODO : REMOVE
-                stats.forEach {
-                    Log.e(TAG,
-                            "Day : ${getDayFromTimeStamp(it.firstTimeStamp)}, Usage : ${formatTime(it.totalTimeInForeground)}"
-                    )
-                }
-
-                Log.e(TAG, "Average : ${(stats.sumOf { it.totalTimeInForeground }) / stats.size}, Current : ${stats.last().totalTimeInForeground}")
-
-                if (stats.isNotEmpty()) {
-
-                    val dailyAverage = (stats.sumOf { it.totalTimeInForeground }) / stats.size
-                    val currentUsage = stats.last().totalTimeInForeground
-                    val streakCount = calculateStreakCount(stats)
-
-                    _dailyAverage.value = Metrics.DailyAverage(dailyAverage, currentUsage)
-                    _currentUsage.value = Metrics.GlobalAverage(currentUsage)
-                    _streakCount.value = Metrics.StreakCount(streakCount)
-                    _degramScore.value = calculateDegramScore(dailyAverage >= currentUsage, currentUsage <= Constants.GLOBAL_USAGE_AVERAGE, streakCount.toInt())
-
-                    _graphData.value = stats
-                    setUsage(stats.last())
-
+                    _graphData.value = stats.stats
+                    setUsage(stats.stats.last())
                 } else {
                     _noDataError.value = true
                 }
             }
         } else _askPermission.value = true
-    }
-
-    private fun calculateDegramScore(isLessThanDailyAverage: Boolean, isLessThanGlobalAverage: Boolean, streakCount: Int): Int {
-        Log.e(TAG, "${isLessThanDailyAverage}, ${isLessThanGlobalAverage}, $streakCount")
-        var score = 0
-        if (isLessThanDailyAverage) score += 30
-        if (isLessThanGlobalAverage) score += 30
-        score += streakCount * 4
-        return score
-    }
-
-    private fun calculateStreakCount(streakStats: List<UsageStats>): Long {
-        var index = 9
-        var continueToCheck = true
-        var count: Long = 0
-
-        while (continueToCheck) {
-            if (index > 0) {
-                if (streakStats[index].totalTimeInForeground <= streakStats[index - 1].totalTimeInForeground) {
-                    count++
-                    index--
-                } else continueToCheck = false
-            } else break
-
-        }
-
-        return count
     }
 
     //Set the data for the bottom sheet, and make it visible

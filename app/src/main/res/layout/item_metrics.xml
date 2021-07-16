@@ -5,13 +5,13 @@
 
     <data>
         <import type="androidx.lifecycle.LiveData" />
-        <import type="com.example.degram.ui.home.Metrics" />
+        <import type="com.example.degram.ui.insights.Metrics" />
         <variable
             name="data"
             type="LiveData&lt;Metrics&lt;Long&gt;&gt;" />
         <variable
             name="viewModel"
-            type="com.example.degram.ui.home.HomeViewModel" />
+            type="com.example.degram.ui.insights.InsightsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

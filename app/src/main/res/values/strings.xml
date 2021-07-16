@@ -63,5 +63,21 @@
     <string name="create_a_new_arena">Create a new arena</string>
     <string name="join_existing_arena">Join existing arena</string>
     <string name="enter_arena_code">Enter Arena Code 🔑</string>
+    <string name="profile_picture">Profile Picture</string>
+
+    <string name="rank_1">🥇</string>
+    <string name="rank_2">🥈</string>
+    <string name="rank_3">🥉</string>
+    <string name="arenas">Arenas</string>
+    <string name="add_arena_button">Add Arena Button</string>
+    <string name="no_arena_joined">No Arena Joined 😟 ! Click on the add icon to get started.</string>
+    <string name="invite">Invite</string>
+    <string name="leave">Leave</string>
+    <string name="delete">Delete</string>
+    <string name="previous_arena_button">Previous Arena Button</string>
+    <string name="next_arena_button">Next Arena Button</string>
+
+    <string name="invite_member">Hey ! I invite you to join my arena in the degram app. Enter code : %s. Let\'s keep our Instagram usage under control together . 🤝🤝 \n \n \n Degram is a fun way to keep a check on your instagram usage , by completing micro challenges and teaming up with your buddies. Download the app here : %s </string>
+    <string name="share_using">Share Using …</string>
 
 </resources>

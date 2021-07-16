@@ -1,27 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
             name="viewModel"
             type="com.example.degram.ui.arena.ArenaViewModel" />
+
+        <variable
+            name="arena"
+            type="com.example.degram.data.Arena" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/test"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/no_arenas"
+            style="@style/Body"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Start"
-            android:onClick="@{() -> viewModel.addArena()}"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="@string/no_arena_joined"
+            app:visibility="@{viewModel.noArenas == true}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/arena_heading" />
+
+        <TextView
+            android:id="@+id/arena_heading"
+            style="@style/Heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/arenas"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/add_arena_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/add_arena_button"
+            android:onClick="@{() -> viewModel.addArena()}"
+            android:src="@drawable/ic_add_arena"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/room_code"
+            style="@style/Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{`Arena Code : ` + arena.code}"
+            app:layout_constraintEnd_toStartOf="@+id/next_btn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/prev_btn"
+            app:layout_constraintTop_toBottomOf="@+id/arena_heading"
+            app:visibility="@{viewModel.isArenaLoading() != true &amp;&amp; viewModel.showSignIn != true &amp;&amp; viewModel.noArenas != true}"
+            tools:text="Room code : 334567" />
+
+        <ImageButton
+            android:id="@+id/next_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@android:color/transparent"
+            android:onClick="@{() -> viewModel.nextArena()}"
+            android:src="@drawable/ic_next_black"
+            app:layout_constraintBottom_toBottomOf="@+id/room_code"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/room_code"
+            app:layout_constraintTop_toTopOf="@+id/room_code"
+            app:visibility="@{viewModel.isArenaLoading() != true &amp;&amp; viewModel.showSignIn != true &amp;&amp; viewModel.noArenas != true}"
+            android:contentDescription="@string/next_arena_button" />
+
+        <ImageButton
+            android:id="@+id/prev_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            android:onClick="@{() -> viewModel.prevArena()}"
+            android:src="@drawable/ic_prev"
+            app:layout_constraintBottom_toBottomOf="@+id/room_code"
+            app:layout_constraintEnd_toStartOf="@+id/room_code"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/room_code"
+            app:visibility="@{viewModel.isArenaLoading() != true &amp;&amp; viewModel.showSignIn != true &amp;&amp; viewModel.noArenas != true}"
+            android:contentDescription="@string/previous_arena_button" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/members_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/room_code"
+            app:visibility="@{viewModel.isArenaLoading() != true &amp;&amp; viewModel.showSignIn != true &amp;&amp; viewModel.noArenas != true}"
+            tools:listitem="@layout/item_arena_member" />
+
+        <TextView
+            android:id="@+id/invite_btn"
+            style="@style/Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:drawablePadding="16dp"
+            android:text="@string/invite"
+            app:drawableStartCompat="@drawable/ic_share"
+            app:layout_constraintEnd_toStartOf="@+id/delete_btn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/members_list"
+            app:visibility="@{viewModel.isArenaLoading() != true &amp;&amp; viewModel.showSignIn != true &amp;&amp; viewModel.isHost(arena) == true &amp;&amp; viewModel.noArenas != true}" />
+
+        <TextView
+            android:id="@+id/leave_btn"
+            style="@style/Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:drawablePadding="8dp"
+            android:text="@string/leave"
+            app:drawableStartCompat="@drawable/ic_exit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/delete_btn"
+            app:layout_constraintTop_toBottomOf="@+id/members_list"
+            app:visibility="@{viewModel.isArenaLoading() != true &amp;&amp; viewModel.showSignIn != true &amp;&amp; viewModel.noArenas != true}" />
+
+        <TextView
+            android:id="@+id/delete_btn"
+            style="@style/Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="32dp"
+            android:drawablePadding="8dp"
+            android:text="@string/delete"
+            app:drawableStartCompat="@drawable/ic_delete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/leave_btn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/invite_btn"
+            app:layout_constraintTop_toBottomOf="@+id/members_list"
+            app:visibility="@{viewModel.isArenaLoading() != true &amp;&amp; viewModel.showSignIn != true &amp;&amp; viewModel.isHost(arena) == true &amp;&amp; viewModel.noArenas != true}" />
+
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/arena_heading"
+            app:visibility="@{viewModel.isArenaLoading() == true &amp;&amp; viewModel.showSignIn != true}" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/arena_heading"
+            app:visibility="@{viewModel.showSignIn == true}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
